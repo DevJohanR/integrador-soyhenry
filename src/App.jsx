@@ -27,9 +27,31 @@ const example = {
 };
 
 
-function onSearch (id){
-   setCharacters([...characters, example]) 
-}
+const APIKEY = 'pi-hx-aquintero';
+
+function onSearch(id) {
+   axios({
+     // La URL debe ser proporcionada completa y correctamente
+     url: `https://rym2.up.railway.app/api/character/${id}?key=${APIKEY}`,
+     method: 'get'
+   }).then(({ data }) => {
+     if (data.name) {
+       // Asumiendo que setCharacters es una función definida previamente para actualizar el estado o realizar alguna acción con los datos obtenidos
+       setCharacters(oldChars => [...oldChars, data]);
+     } else {
+       window.alert('¡No hay personajes con este ID!');
+     }
+   }).catch(error => {
+     // Es importante manejar errores que puedan ocurrir durante la solicitud
+     console.error('Hubo un error en la solicitud', error);
+     window.alert('Hubo un problema al realizar la búsqueda');
+   });
+ }
+ 
+
+ function onClose(id){
+   setCharacters(characters.filter((character)=> character.id != Number(id)))  
+ }
 
 
 
@@ -37,7 +59,7 @@ function onSearch (id){
       <div className='App'>
          <Navbar onSearch={onSearch} />
         
-         <Cards characters={characters} />
+         <Cards characters={characters} onClose={onClose} />
          <hr/>
         
       </div>
