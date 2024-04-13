@@ -3,6 +3,10 @@ import Cards from './components/Cards/Cards.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import { useState } from 'react';
 import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+import About from './components/About/About.jsx';
+import Detail from './components/Detail/Detail.jsx';
+import PATHROUTES from './helpers/PathRoutes.helpers.js';
 
 
 function App() {
@@ -58,8 +62,12 @@ function onSearch(id) {
    return (
       <div className='App'>
          <Navbar onSearch={onSearch} />
-        
-         <Cards characters={characters} onClose={onClose} />
+          <Routes>
+            <Route path={PATHROUTES.HOME} element={<Cards characters={characters} onClose={onClose} />} />
+            <Route path={PATHROUTES.ABOUT} element={<About/>} />
+            <Route path={PATHROUTES.DETAIL} element={<Detail/>} />
+          </Routes>
+         
          <hr/>
         
       </div>
