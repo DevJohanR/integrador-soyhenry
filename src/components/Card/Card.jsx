@@ -6,9 +6,10 @@ export default function Card(props) {
       <div>
          <button onClick={()=> props.onClose(props.id)}>X</button>
 
-         <Link to={`/detail/${id}`}>
-         <h2>{props.name} </h2>
-         </Link>
+         <Link to={`/detail/${props.id}`}>
+  <h2>{props.name} </h2>
+</Link>
+
   
          <h2>{props.status} </h2>
          <h2>{props.species} </h2> 
